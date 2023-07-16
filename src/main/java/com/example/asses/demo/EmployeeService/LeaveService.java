@@ -11,5 +11,6 @@ public interface LeaveService {
        void deleteLeave(Long leaveId);
          List<Leaves> getAllLeaves();
       Leaves getLeaveById(Long leaveId);
+     List<Leaves> getUnapprovedLeavesByEmployeeId(Long Id);
     }
 

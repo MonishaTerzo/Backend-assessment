@@ -6,6 +6,7 @@ import com.example.asses.demo.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -29,11 +30,11 @@ public class EmployeeServiceImpl implements Employeeservice {
     }
 
     @Override
-    public void updateEmployee(Employeedto empdto) {
+    public void updateEmployee(Employee employee) {
 
-            Employee emp = maptoemployee(empdto);
-            employeerepository.save(emp);
-        }
+        employeerepository.save(employee);
+    }
+
 
     @Override
     public Employee saveEmployee(Employee emp) {
@@ -44,6 +45,12 @@ public class EmployeeServiceImpl implements Employeeservice {
     public void delete(Long Id) {
         employeerepository.deleteById(Id);
 
+    }
+    @Override
+    public List<Employee> getRecentBirthdays() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate sevenDaysAgo = currentDate.minusDays(7);
+        return employeerepository.findByDobBetween(sevenDaysAgo, currentDate);
     }
 
 

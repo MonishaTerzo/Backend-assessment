@@ -41,14 +41,8 @@ public class LeaveServiceImpl implements LeaveService {
         public Leaves getLeaveById(Long leaveId) {
             return leaveRepository.findById(leaveId).orElse(null);
         }
-    public Leaves approveLeave(Long ids) {
-    Optional<Leaves> optionalLeaveApplication =leaveRepository.findById(ids);
-        if (optionalLeaveApplication.isPresent()) {
-        Leaves leaveApplication = optionalLeaveApplication.get();
-        leaveApplication.setApproved(true);
-        return leaveRepository.save(leaveApplication);
-    } else {
-        throw new IllegalArgumentException("Leave application not found.");
+
+    public List<Leaves> getUnapprovedLeavesByEmployeeId(Long Id) {
+        return leaveRepository.findByEmployeeIdAndLeaveStatus(Id, false);
     }
-}
     }

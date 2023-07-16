@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data//for all getters and setters and for to string...
 @AllArgsConstructor
@@ -40,6 +39,7 @@ public class Employee {
     private String emailid;
     private String salary;
     private String address;
+    public LocalDate dob;
 
 
     @ManyToOne
@@ -50,12 +50,17 @@ public class Employee {
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
+//    @OneToOne
+//    @JoinColumn(name = "job_id")
+//    private Job job;
+//
+//    @OneToOne
+//    @JoinColumn(name = "personal_id")
+//    private Personal personal;
 
-
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "employee_id")
-//    private List<Leaves> leaves;
-
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Leaves> leaves = new ArrayList<>();
 }
 
 

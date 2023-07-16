@@ -3,6 +3,7 @@ package com.example.asses.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +25,10 @@ public class Leaves {
     private LocalDate startDate;
 
     private LocalDate endDate;
-    private boolean approved;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Employee employee;
-
+    @Column(nullable = false)
+    private boolean leaveStatus;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference
+    private Employee employee;
 }

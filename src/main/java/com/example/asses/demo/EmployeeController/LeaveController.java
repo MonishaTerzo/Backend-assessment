@@ -3,6 +3,7 @@ package com.example.asses.demo.EmployeeController;
 import com.example.asses.demo.EmployeeService.LeaveService;
 import com.example.asses.demo.model.Leaves;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class LeaveController {
 
     @PostMapping
     public Leaves createLeave(@RequestBody Leaves leave) {
+
         return leaveService.createLeave(leave);
     }
 
@@ -43,6 +45,13 @@ public class LeaveController {
     @GetMapping
     public List<Leaves> getAllLeaves() {
         return leaveService.getAllLeaves();
+    }
+
+
+    @GetMapping("/employee/{Id}/unapproved")
+    public ResponseEntity<List<Leaves>> getUnapprovedLeavesByEmployeeId(@PathVariable Long Id) {
+        List<Leaves> unapprovedLeaves = leaveService.getUnapprovedLeavesByEmployeeId(Id);
+        return ResponseEntity.ok(unapprovedLeaves);
     }
 
     @GetMapping("/{leaveId}")

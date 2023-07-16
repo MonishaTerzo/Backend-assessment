@@ -4,6 +4,7 @@ import com.example.asses.demo.EmployeeService.Employeeservice;
 import com.example.asses.demo.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,6 @@ public class Employeecontroller {
 @GetMapping("/employee/list")
 public List<Employee> findempAll() {
         Employee employee = employeeService.findAllEmployees().get(0);
-    System.out.println(employee.getJob().getPerformance());
     return employeeService.findAllEmployees();
 }
 
@@ -48,18 +48,25 @@ public List<Employee> findempAll() {
         return dbEmployee;
     }
 
-    @PutMapping("/employees/{employeeId}/update")
-    public boolean updateEmployeeInfo(@RequestBody @PathVariable("employeeId") Employee employee){
-        employeeService.saveEmployee(employee);
-        return true;
+    @PutMapping("/employees/{employeeId}")
+    public Employee updateEmployee( @PathVariable("employeeId") Long id ,@RequestBody Employee employee){
+        employee.setId(id);
+        employeeService.updateEmployee(employee);
+        return employee;
     }
 
-    @DeleteMapping("/employees/delete/{employeeId}")
-    public void  deleteEmployee(@PathVariable long employeeId) {
-        Employee tempEmployee = employeeService.getEmployeeById(employeeId);
-        if (tempEmployee == null) {
-            throw new RuntimeException("Employee id not found - " + employeeId);
+
+    @DeleteMapping("/employees/{employeeId}")
+    public String deleteEmployee(@PathVariable("employeeId") long id){
+        Employee employee = employeeService.getEmployeeById(id);
+        if(employee == null){
+            throw new RuntimeException("Employee id not found : "+id);
         }
-        employeeService.delete(employeeId);
-    }
+        employeeService.delete(id);
+        return " emp id  is - " +id;
 }
+    @GetMapping("/recent-birthdays")
+    public ResponseEntity<List<Employee>> getRecentBirthdays() {
+        List<Employee> recentBirthdays = employeeService.getRecentBirthdays();
+        return ResponseEntity.ok(recentBirthdays);
+    }}

@@ -12,9 +12,10 @@ public interface Employeeservice {
 
     List<Employee> findAllEmployees();
     Employee getEmployeeById(Long Id);
-    void updateEmployee(Employeedto emp);
+    void updateEmployee(Employee emp);
       Employee saveEmployee(Employee emp);
     void delete(Long Id);
+    List<Employee> getRecentBirthdays();
 
 
 }
