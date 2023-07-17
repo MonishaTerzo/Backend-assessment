@@ -1,5 +1,6 @@
 package com.example.asses.demo.EmployeeService;
 
+import com.example.asses.demo.EmployeeDto.LeaveDto;
 import com.example.asses.demo.model.Leaves;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ public interface LeaveService {
        void deleteLeave(Long leaveId);
          List<Leaves> getAllLeaves();
       Leaves getLeaveById(Long leaveId);
-     List<Leaves> getUnapprovedLeavesByEmployeeId(Long Id);
+     List<LeaveDto> getUnapprovedLeaves();
+    void approveLeave(Long leaveId) ;
     }
 

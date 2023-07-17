@@ -27,6 +27,7 @@ public class Leaves {
     private LocalDate endDate;
     @Column(nullable = false)
     private boolean leaveStatus;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @JsonBackReference

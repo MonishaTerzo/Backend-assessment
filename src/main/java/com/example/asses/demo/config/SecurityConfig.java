@@ -59,6 +59,13 @@ public class SecurityConfig {
                     try{
                         authorize.requestMatchers("/login")
                                 .permitAll()
+//                                .requestMatchers("/api/role/**").permitAll()
+//                                .requestMatchers(HttpMethod.GET,"/api/employee/list").hasAnyAuthority("ADMIN","EMPLOYEE","MANAGER")
+//                                .requestMatchers(HttpMethod.GET,"/api/employees/search").hasAnyAuthority("ADMIN","USER","MANAGER)
+//                                .requestMatchers(HttpMethod.GET,"/api/employees/**").hasAnyAuthority("ADMIN","USER","MANAGER")
+//                                .requestMatchers(HttpMethod.POST,"/api/employees/add").hasAnyAuthority("ADMIN")
+//                                .requestMatchers(HttpMethod.PUT,"/api/employees/**").hasAnyAuthority("ADMIN")
+//                                .requestMatchers(HttpMethod.DELETE,"/api/employees/**").hasAnyAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                                 .and()

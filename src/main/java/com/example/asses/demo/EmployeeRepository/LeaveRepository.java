@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface LeaveRepository extends JpaRepository<Leaves,Long> {
-    List<Leaves> findByEmployeeIdAndLeaveStatus(Long Id, boolean status);
+    List<Leaves> findLeavesByLeaveStatus(boolean status);
 
 }

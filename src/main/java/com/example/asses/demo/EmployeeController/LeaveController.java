@@ -1,5 +1,6 @@
 package com.example.asses.demo.EmployeeController;
 
+import com.example.asses.demo.EmployeeDto.LeaveDto;
 import com.example.asses.demo.EmployeeService.LeaveService;
 import com.example.asses.demo.model.Leaves;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/leaves")
 public class LeaveController {
@@ -49,10 +50,22 @@ public class LeaveController {
 
 
     @GetMapping("/employee/{Id}/unapproved")
-    public ResponseEntity<List<Leaves>> getUnapprovedLeavesByEmployeeId(@PathVariable Long Id) {
-        List<Leaves> unapprovedLeaves = leaveService.getUnapprovedLeavesByEmployeeId(Id);
+    public ResponseEntity<List<LeaveDto>> getUnapprovedLeavesByEmployeeId(@PathVariable Long Id) {
+        List<LeaveDto> unapprovedLeaves = leaveService.getUnapprovedLeaves();
         return ResponseEntity.ok(unapprovedLeaves);
     }
+    @GetMapping("/unapproved")
+    public ResponseEntity<List<LeaveDto>> getUnapprovedLeaves(){
+        List<LeaveDto> unapprovedLeaves = leaveService.getUnapprovedLeaves();
+        return ResponseEntity.ok(unapprovedLeaves);
+    }
+    @PutMapping("/approve/{leaveId}")
+    public ResponseEntity<Void> approveLeave(@PathVariable Long leaveId) {
+        leaveService.approveLeave(leaveId);
+        return ResponseEntity.ok().build();
+    }
+
+
 
     @GetMapping("/{leaveId}")
     public Leaves getLeaveById(@PathVariable Long leaveId) {

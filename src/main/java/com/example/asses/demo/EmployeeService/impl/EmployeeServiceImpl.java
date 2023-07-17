@@ -3,6 +3,7 @@ import com.example.asses.demo.EmployeeDto.Employeedto;
 import com.example.asses.demo.EmployeeRepository.Employeerepository;
 import com.example.asses.demo.EmployeeService.Employeeservice;
 import com.example.asses.demo.model.Employee;
+import com.example.asses.demo.model.Leaves;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,15 @@ public class EmployeeServiceImpl implements Employeeservice {
             return  employeerepository.findAll();
 //            return employees.stream().map((employee) -> maptoemployeedto(employee)).collect(Collectors.toList())
         }
+    @Override
+    public List<Employee> searchEmployees(String query) {
+        List<Employee> employees = employeerepository.searchEmployees(query);
+        return employees;
+    }
+    @Override
+    public Employee findEmployeeByLeave(Leaves leaves) {
+        return employeerepository.findEmployeeByLeaves(leaves);
+    }
 
     @Override
     public Employee getEmployeeById(Long Id) {
@@ -49,7 +59,7 @@ public class EmployeeServiceImpl implements Employeeservice {
     @Override
     public List<Employee> getRecentBirthdays() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate sevenDaysAgo = currentDate.minusDays(7);
+        LocalDate sevenDaysAgo = currentDate.plusDays(7);
         return employeerepository.findByDobBetween(sevenDaysAgo, currentDate);
     }
 

@@ -14,7 +14,8 @@ public class UserController {
     @GetMapping("/username")
     public String getUsername() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUsername();
+        System.out.println(userDetails.getUsername());
+        return "name";
     }
 
     // Other controller methods

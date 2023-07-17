@@ -2,8 +2,12 @@ package com.example.asses.demo.EmployeeController;
 import com.example.asses.demo.EmployeeDto.Employeedto;
 import com.example.asses.demo.EmployeeService.Employeeservice;
 import com.example.asses.demo.model.Employee;
+import com.example.asses.demo.model.Leaves;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,4 +73,20 @@ public List<Employee> findempAll() {
     public ResponseEntity<List<Employee>> getRecentBirthdays() {
         List<Employee> recentBirthdays = employeeService.getRecentBirthdays();
         return ResponseEntity.ok(recentBirthdays);
-    }}
+    }
+    @GetMapping("/employees/search/{query}")
+    public List<Employee> searchEmployees(@PathVariable String query){
+        List<Employee> employees = employeeService.searchEmployees(query);
+        return employees;
+    }
+//    @GetMapping("/employee/page")
+//    public Page<Employee> getEmployeeList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+//        Pageable paging = PageRequest.of(page, size);
+//        return employeeService.findAllEmployee(paging);
+//    }
+    @PostMapping("/employee/leave")
+    public ResponseEntity<Employee> getEmployeeLeave(@RequestBody Leaves leaves){
+        Employee employee = employeeService.findEmployeeByLeave(leaves);
+        return ResponseEntity.ok(employee);
+    }
+}

@@ -43,6 +43,7 @@ public class Employee {
 
 
     @ManyToOne
+
     @JoinColumn(name = "dept_id")
     private Department department;
 
@@ -58,7 +59,7 @@ public class Employee {
 //    @JoinColumn(name = "personal_id")
 //    private Personal personal;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Leaves> leaves = new ArrayList<>();
 }
