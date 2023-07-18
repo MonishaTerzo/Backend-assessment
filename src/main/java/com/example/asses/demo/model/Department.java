@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name="department")
 public class Department {
     @Id
-    private long id;
+    private long  id;
     private String name;
 }
